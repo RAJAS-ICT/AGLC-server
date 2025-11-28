@@ -1,5 +1,6 @@
 import Vendor from '../model/vendorModel.js'
 import { sequelize } from '../config/conn.js';
+import { Op } from "sequelize";
 
 export const getVendor = async(req,res)=>{
     try {
@@ -22,15 +23,16 @@ export const createVendor = async (req, res) => {
     const currentYear = new Date().getFullYear(); 
 
     const lastVendor = await Vendor.findOne({
-      where: sequelize.where(
-        sequelize.literal(`"code" LIKE 'V${currentYear}%'`),
-        true
-      ),
+      where: {
+        code: {
+          [Op.like]: `V${currentYear}%`
+        }
+      },
       order: [
         [
-          sequelize.literal(`CAST(SUBSTRING("code", 6) AS INTEGER)`),
-          "DESC",
-        ],
+          sequelize.literal(`CAST(SUBSTRING(code, 6) AS SIGNED)`),
+          "DESC"
+        ]
       ],
     });
 
