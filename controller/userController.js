@@ -23,9 +23,9 @@ export const getCurrentUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { username, password, email, firstName, middleName, lastName} = req.body;
+    const { username, password, email, firstName, middleName, lastName, role} = req.body;
 
-    if (!username || !password || !email || !firstName) {
+    if (!username || !password || !email || !firstName || !role) {
       return res.status(400).json({ message: 'Missing field. Please try again.' });
     }
 
@@ -46,7 +46,8 @@ export const createUser = async (req, res) => {
       email,
       firstName,
       middleName,
-      lastName
+      lastName,
+      role
     });
 
     const userResponse = newUser.toJSON();
@@ -126,7 +127,7 @@ export const getUserId = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, firstName, middleName, lastName } = req.body;
+    const { username, email, firstName, middleName, lastName, role } = req.body;
 
     const user = await User.findByPk(id);
     if (!user) {
@@ -138,6 +139,7 @@ export const updateUser = async (req, res) => {
     user.firstName = firstName || user.firstName;
     user.middleName = middleName || user.middleName;
     user.lastName = lastName || user.lastName;
+    user.role = role || user.role;
 
     await user.save();
 
