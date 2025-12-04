@@ -65,7 +65,7 @@ app.use('/charge',chargeRouter)
 const startServer = async()=>{
     try {
         await dbConnect()
-        await sequelize.sync({alter:true})
+        await sequelize.sync()
         app.listen(PORT)
     } catch (error) {
         console.log(error)
