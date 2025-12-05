@@ -23,7 +23,7 @@ export const getCurrentUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { username, password, email, firstName, middleName, lastName, role} = req.body;
+    const { username, password, email, firstName, middleName, lastName, role, isActive} = req.body;
 
     if (!username || !password || !email || !firstName || !role) {
       return res.status(400).json({ message: 'Missing field. Please try again.' });
@@ -47,7 +47,8 @@ export const createUser = async (req, res) => {
       firstName,
       middleName,
       lastName,
-      role
+      role,
+      isActive
     });
 
     const userResponse = newUser.toJSON();
