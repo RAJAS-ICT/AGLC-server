@@ -243,7 +243,7 @@ export const updateUserProfile = async (req, res) => {
     delete userResponse.password;
 
     res.status(200).json({
-      message: 'User updated successfully.',
+      message: 'Updated successfully.',
       user: userResponse
     });
   } catch (error) {
