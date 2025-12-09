@@ -219,7 +219,6 @@ export const updateUser = async (req, res) => {
   }
 };
 
-
 export const updateUserProfile = async (req, res) => {
   try {
     const { id } = req.params;
