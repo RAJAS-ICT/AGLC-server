@@ -38,6 +38,9 @@ const paymentRequest = sequelize.define('PaymentRequest',
         },
         remarks:{
             type:DataTypes.STRING
+        },
+        status:{
+            type:DataTypes.STRING
         }
     },
     {

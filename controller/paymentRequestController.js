@@ -36,7 +36,7 @@ export const getPaymentRequestById = async(req,res)=>{
 }
 export const postPaymentRequest = async (req, res) => {
   try {
-    const { vendorId, dateNeeded, costCenterId, chargeTo, remarks, requestType } = req.body;
+    const { vendorId, dateNeeded, costCenterId, chargeTo, remarks, requestType, status } = req.body;
   
     let prefix = "";
     if (requestType === "Check") prefix = "CR";
@@ -72,6 +72,7 @@ export const postPaymentRequest = async (req, res) => {
       requestType,
       requestNumber,
       remarks,
+      status :'Open'
     });
 
     res.status(201).json({
@@ -87,7 +88,7 @@ export const postPaymentRequest = async (req, res) => {
 export const updatePaymentRequest = async (req, res) => {
   try {
     const { id } = req.params;
-    const { vendorId, departmentId, dateNeeded, chargeTo, remarks, requestType } = req.body || {};
+    const { vendorId, departmentId, dateNeeded, chargeTo, remarks, requestType, status } = req.body;
 
     const paymentRequest = await PaymentRequest.findByPk(id);
     if (!paymentRequest) return res.status(404).json({ message: "Payment Request not found." });
@@ -97,8 +98,9 @@ export const updatePaymentRequest = async (req, res) => {
     if (dateNeeded !== undefined) paymentRequest.dateNeeded = dateNeeded;
     if (chargeTo !== undefined) paymentRequest.chargeTo = chargeTo;
     if (remarks !== undefined) paymentRequest.remarks = remarks;
+    if (status !== undefined) paymentRequest.status = status;
     if (requestType !== undefined && requestType !== paymentRequest.requestType) {
-  paymentRequest.requestType = requestType;
+    paymentRequest.requestType = requestType;
 
       let prefix = "";
       if (requestType === "Check") prefix = "CR";

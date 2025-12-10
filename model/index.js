@@ -9,6 +9,9 @@ import Booking from '../model/bookingModel.js'
 import Charge from '../model/chargeModel.js'
 import PaymentRequestDetail from '../model/paymentRequestDetailModel.js'
 
+import Employee from './employeeModel.js'
+import PettyCashRelease from './pettyCashReleaseModel.js'
+
 SubAccountTitle.belongsTo(AccountTitle, { foreignKey: 'accountId', as: 'account' });
 AccountTitle.hasMany(SubAccountTitle, { foreignKey: 'accountId', as: 'subAccounts' });
 
@@ -26,3 +29,9 @@ Booking.hasMany(PaymentRequestDetail, {foreignKey: 'bookingId', as:'paymentReque
 
 PaymentRequestDetail.belongsTo(Charge, {foreignKey: 'chargeId', as: 'charge'})
 Charge.hasMany(PaymentRequestDetail, {foreignKey: 'chargeId', as: 'paymentRequestDetails'})
+
+PettyCashRelease.belongsTo(PaymentRequest, {foreignKey:'paymentRequestId', as: 'paymentRequest'})
+PaymentRequest.hasMany(PettyCashRelease, {foreignKey:'paymentRequestId', as:'pettyCash'})
+
+PettyCashRelease.belongsTo(Employee, {foreignKey:'receivedById', as:'employee'})
+Employee.hasMany(PettyCashRelease, {foreignKey:'receivedById', as:'pettyCash'})

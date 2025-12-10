@@ -18,6 +18,7 @@ import departmentRouter from './router/departmentRouter.js'
 import paymentRequestRouter from './router/paymentRequestRouter.js'
 import paymentRequestDetailRouter from './router/paymentRequestDetailRouter.js'
 import chargeRouter from './router/chargeRouter.js'
+import pettyCashRelease from './router/pettyCashReleaseRouter.js'
 
 //models
 import './model/userModel.js'
@@ -31,6 +32,7 @@ import './model/paymentRequestModel.js'
 import './model/paymentRequestDetailModel.js'
 import './model/chargeModel.js'
 import './model/index.js'
+import './model/pettyCashReleaseModel.js'
 
 
 const app = express()
@@ -59,6 +61,7 @@ app.use('/department',departmentRouter)
 app.use('/paymentRequest',paymentRequestRouter)
 app.use('/paymentRequestDetail',paymentRequestDetailRouter)
 app.use('/charge',chargeRouter)
+app.use('/pettyCashRelease',pettyCashRelease)
 
 
 //Connection
