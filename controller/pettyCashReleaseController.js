@@ -38,3 +38,31 @@ export const createPettyCashRelease = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 };
+
+export const updatePettyCashRelease = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { paymentRequestId, receivedById, updatedById } = req.body;
+
+    const petty = await PettyCash.findByPk(id);
+    if (!petty) {
+      return res.status(404).json({ message: "Petty Cash not found." });
+    }
+
+    petty.paymentRequestId = paymentRequestId ?? petty.paymentRequestId;
+    petty.receivedById = receivedById ?? petty.receivedById;
+
+    petty.updatedById = req.user?.id ?? updatedById ?? petty.updatedById;
+
+    await petty.save();
+
+    res.status(200).json({
+      message: "Updated successfully.",
+      data: petty,
+    });
+
+  } catch (error) {
+    console.error("Error updating petty cash:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
