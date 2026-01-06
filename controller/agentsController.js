@@ -13,6 +13,11 @@ export const getDataAgents = async(req,res)=>{
 export const postDataAgents = async(req,res)=>{
     try {
         const {name} = req.body
+        if(!name){
+            return res.status(400).json({
+                message:'Name is required'
+            })
+        }
         const result = await Agents.create({
             name
         })
