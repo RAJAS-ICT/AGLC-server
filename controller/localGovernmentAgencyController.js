@@ -13,14 +13,14 @@ export const getDataLocalGovernmentAgency = async(req,res)=>{
 export const postDataLocalGovernmentAgency = async(req,res)=>{
     try {
         const {name} = req.body
-        const result = await LocalGovernmentAgency.create({
-            name
-        })
         if(!name){
             res.status(400).json({
                 message:'Name is required.'
             })
         }
+        const result = await LocalGovernmentAgency.create({
+            name
+        })
         res.status(201).json({
             message: 'Created Successfully',
             data: result

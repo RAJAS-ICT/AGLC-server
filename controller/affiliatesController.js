@@ -13,14 +13,16 @@ export const getDataAffiliate = async(req,res)=>{
 export const postDataAffiliate = async(req,res)=>{
     try {
         const {name} = req.body
-        const result = await Affiliate.create({
-            name
-        })
-        if(!name){
+        
+         if(!name){
             return res.status(400).json({
                 message:'Name is required.'
             })
         }
+
+        const result = await Affiliate.create({
+            name
+        })
         res.status(201).json({
             message:'Created Successfully.',
             data: result

@@ -13,14 +13,14 @@ export const getDataBanks = async(req,res)=>{
 export const postDataBanks = async(req,res)=>{
     try {
         const {name} = req.body
-        const result = await Banks.create({
-            name
-        })
         if(!name){
             return res.status(400).json({
                 message:'Name is required.'
             })
         }
+        const result = await Banks.create({
+            name
+        })
         res.status(201).json({
             message:'Created Successfully',
             data: result
