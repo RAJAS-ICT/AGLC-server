@@ -10,6 +10,17 @@ export const getDataLocalGovernmentAgency = async(req,res)=>{
     }
 }
 
+export const getDataLocalGovernmentAgencyById = async(req,res)=>{
+    try {
+        const {id} = req.params
+        const result = await LocalGovernmentAgency.findByPk(id,{raw:true})
+        res.status(200).json(result)
+    } catch (error) {
+        console.error('Error: ', error)
+        res.status(500).json({message: error.message})
+    }
+}
+
 export const postDataLocalGovernmentAgency = async(req,res)=>{
     try {
         const {name} = req.body

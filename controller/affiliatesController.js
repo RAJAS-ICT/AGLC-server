@@ -10,6 +10,21 @@ export const getDataAffiliate = async(req,res)=>{
     }
 }
 
+export const getDataAffiliateByID = async(req,res)=>{
+    try {
+        const {id} = req.params
+        const result = await Affiliate.findByPk(id, {raw:true})
+
+    if (!result) {
+      return res.status(404).json({ message: 'Affiliate not found' })
+    }
+        res.status(200).json(result)
+    } catch (error) {
+        console.error('Error: ', error)
+        res.status(500).json({message: error.message})
+    }
+}
+
 export const postDataAffiliate = async(req,res)=>{
     try {
         const {name} = req.body
