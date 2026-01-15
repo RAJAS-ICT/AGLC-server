@@ -12,6 +12,8 @@ import PaymentRequestDetail from '../model/paymentRequestDetailModel.js'
 import Employee from './employeeModel.js'
 import PettyCashRelease from './pettyCashReleaseModel.js'
 
+import JournalEntry from './journalEntryModel.js'
+
 SubAccountTitle.belongsTo(AccountTitle, { foreignKey: 'accountId', as: 'account' });
 AccountTitle.hasMany(SubAccountTitle, { foreignKey: 'accountId', as: 'subAccounts' });
 
@@ -35,3 +37,19 @@ PaymentRequest.hasMany(PettyCashRelease, {foreignKey:'paymentRequestId', as:'pet
 
 PettyCashRelease.belongsTo(Employee, {foreignKey:'receivedById', as:'employee'})
 Employee.hasMany(PettyCashRelease, {foreignKey:'receivedById', as:'pettyCash'})
+
+
+
+
+JournalEntry.belongsTo(PettyCashRelease, {foreignKey:'belongsToId', as:'pettyCash'}),
+PettyCashRelease.hasMany(JournalEntry, {foreignKey:'belongsToId', as:'journalEntries'})
+
+JournalEntry.belongsTo(AccountTitle, {foreignKey:'accountTitleId', as:'account'})
+AccountTitle.hasMany(JournalEntry, {foreignKey:'accountTitleId', as:'journalEntries'})
+
+JournalEntry.belongsTo(SubAccountTitle, {foreignKey:'subAccountTitleId', as:'subAccount'})
+SubAccountTitle.hasMany(JournalEntry, {foreignKey:'subAccountTitleId', as:'journalEntries'})
+
+JournalEntry.belongsTo(Department, {foreignKey:'departmentId', as:'department'})
+Department.hasMany(JournalEntry, {foreignKey:'departmentId', as:'journalEntries'})
+

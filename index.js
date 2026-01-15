@@ -23,6 +23,7 @@ import affiliatesRouter from './router/affiliatesRouter.js'
 import localGovernmentAgency from './router/localGovernmentAgencyRouter.js'
 import banks from './router/banksRouter.js'
 import agents from './router/agentsRouter.js'
+import journalEntry from './router/journalEntryRouter.js'
 
 //models
 import './model/userModel.js'
@@ -41,6 +42,7 @@ import './model/affiliateModel.js'
 import './model/localGovernmentAgencyModel.js'
 import './model/banksModel.js'
 import './model/agentsModel.js'
+import './model/journalEntryModel.js'
 
 
 const app = express()
@@ -74,7 +76,7 @@ app.use('/affiliates',affiliatesRouter)
 app.use('/localGovernmentAgency',localGovernmentAgency)
 app.use('/banks',banks)
 app.use('/agents',agents)
-
+app.use('/journalEntry', journalEntry)
 
 //Connection
 const startServer = async()=>{
