@@ -44,7 +44,7 @@ export const createBooking = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "Booking created.",
+      message: "Created successfully.",
       data: newBooking.toJSON(),
     });
   } catch (error) {

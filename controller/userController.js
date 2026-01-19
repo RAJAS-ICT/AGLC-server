@@ -69,7 +69,7 @@ export const createUser = async (req, res) => {
     delete userResponse.password;
 
     res.status(201).json({
-      message: 'Created successfully.',
+      message: 'Account created successfully.',
       data: userResponse,
     });
 
