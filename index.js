@@ -24,6 +24,7 @@ import localGovernmentAgency from './router/localGovernmentAgencyRouter.js'
 import banks from './router/banksRouter.js'
 import agents from './router/agentsRouter.js'
 import journalEntry from './router/journalEntryRouter.js'
+import pettyCashLiquidation from './router/pettyCashLiquidationRouter.js'
 
 //models
 import './model/userModel.js'
@@ -43,6 +44,7 @@ import './model/localGovernmentAgencyModel.js'
 import './model/banksModel.js'
 import './model/agentsModel.js'
 import './model/journalEntryModel.js'
+import './model/pettyCashLiquidationModel.js'
 
 
 const app = express()
@@ -77,6 +79,7 @@ app.use('/localGovernmentAgency',localGovernmentAgency)
 app.use('/banks',banks)
 app.use('/agents',agents)
 app.use('/journalEntry', journalEntry)
+app.use('/pettyCashLiquidation', pettyCashLiquidation)
 
 //Connection
 const startServer = async()=>{

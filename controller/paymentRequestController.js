@@ -8,8 +8,9 @@ export const getPaymentRequest = async(req,res)=>{
     try {
         const result = await PaymentRequest.findAll({
             include: [
-                {model:Vendor, as:'vendor'},
-                {model:Department, as:'department'}
+                { model:Vendor, as:'vendor'},
+                { model:Department, as:'department'},
+                { model: PaymentRequestDetail, as: 'paymentRequestDetails' }
             ]
         })
         res.status(200).json(result)
