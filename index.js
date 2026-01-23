@@ -45,6 +45,7 @@ import './model/banksModel.js'
 import './model/agentsModel.js'
 import './model/journalEntryModel.js'
 import './model/pettyCashLiquidationModel.js'
+import './model/pettyCashLiquidationDetail.js'
 
 
 const app = express()

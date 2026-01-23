@@ -3,6 +3,8 @@ import PaymentRequest from '../model/paymentRequestModel.js';
 import Booking from '../model/bookingModel.js'
 import Charge from '../model/chargeModel.js';
 import Customer from "../model/customerModel.js";
+import { updatePettyCashTotal } from '../controller/helper/updatePettycashtotal.js';
+
 
 export const getPaymentRequestDetail = async(req,res)=>{
     try {
@@ -56,7 +58,7 @@ export const getPaymentRequestDetailsByRequestId = async (req, res) => {
 
 export const postPaymentRequestDetail = async(req,res)=>{
     try {
-        const {paymentRequestId, bookingId, chargeId, chargeDesc, quantity, amount} = req.body
+        const {paymentRequestId, bookingId, chargeId, chargeDesc, quantity, amount} = req.body;
         const result = await PaymentRequestDetail.create({
             paymentRequestId, 
             bookingId, 
@@ -64,7 +66,10 @@ export const postPaymentRequestDetail = async(req,res)=>{
             chargeDesc, 
             quantity,
             amount
-        })
+        });
+
+        await updatePettyCashTotal(paymentRequestId);
+
         res.status(201).json({
             message:'Created successfully',
             data:result
