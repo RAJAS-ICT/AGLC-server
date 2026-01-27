@@ -66,4 +66,5 @@ PaymentRequest.hasMany(PettyCashLiquidation, {foreignKey: "paymentRequestId", as
 PettyCashLiquidationDetail.belongsTo(PettyCashLiquidation, {foreignKey: 'pettyCashLiquidationId', as:'pettyCashLiquidation'})
 PettyCashLiquidation.hasMany(PettyCashLiquidationDetail, {foreignKey:'pettyCashLiquidationId', as:'pettyCashLiquidationDetail'})
 
-// PettyCashLiquidationDetail.belongsTo(PaymentRequest)
+PettyCashLiquidationDetail.belongsTo(PaymentRequestDetail, {foreignKey:'paymentRequestDetailId',as:'paymentRequestDetail'})
+PaymentRequestDetail.hasMany(PettyCashLiquidationDetail, {foreignKey:'paymentRequestDetailId', as:'pettyCashLiquidationDetail'})

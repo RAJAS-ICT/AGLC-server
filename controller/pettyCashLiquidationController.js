@@ -1,5 +1,8 @@
 import PettyCashLiquidation from '../model/pettyCashLiquidationModel.js'
 import PaymentRequest from '../model/paymentRequestModel.js'
+import PettyCashLiquidationDetail from '../model/pettyCashLiquidationDetail.js'
+import PaymentRequestDetail from '../model/paymentRequestDetailModel.js'
+
 
 export const fetchPettyCashLiquidation = async(req,res)=>{
     try {
@@ -66,21 +69,43 @@ export const updatePettyCashLiquidation = async(req,res)=>{
 
 //pettycash liquidation detail
 
-export const getPettyCashLiquidationDetail = async(req,res)=>{
-    try {
-        
-    } catch (error) {
-        console.error('Error: ', error)
-        res.status(500).json({message:'Internal Server Error: ', error: error.messsage})
-    }
-}
+export const fetchPettyCashLiquidationDetailByLiquidationId = async (req, res) => {
+  try {
+    const { id } = req.params; // liquidation ID
+    const result = await PettyCashLiquidationDetail.findAll({
+      where: { pettyCashLiquidationId: id },
+      include: [
+        { model: PettyCashLiquidation, as: 'pettyCashLiquidation' },
+        { model: PaymentRequestDetail, as: 'paymentRequestDetail' }
+      ]
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error fetching liquidation details:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
 
 
-export const createPettyCashLiquidationDetail = async(req,res)=>{
-    try {
-        
-    } catch (error) {
-        console.error('Error: ', error)
-        res.status(500).json({message: 'Internal Server Error', error: error.message})
+
+export const createPettyCashLiquidationDetail = async (req, res) => {
+  try {
+    const { pettyCashLiquidationId, paymentRequestDetailId, liquidatedAmount, returnRefundAmount } = req.body;
+
+    if (!liquidatedAmount && liquidatedAmount !== 0) {
+      return res.status(400).json({ message: "Liquidated amount is required." });
     }
-}
+
+    const result = await PettyCashLiquidationDetail.create({
+      pettyCashLiquidationId,
+      paymentRequestDetailId,
+      liquidatedAmount,
+      returnRefundAmount
+    });
+
+    res.status(201).json({ message: "Created Successfully.", data: result });
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};

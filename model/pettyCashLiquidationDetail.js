@@ -24,7 +24,7 @@ const pettyCashLiquidationDetail = sequelize.define('pettyCashLiquidationDetail'
                 key:'id',
             }
         },
-        amount:{
+        liquidatedAmount:{
             type:DataTypes.DECIMAL(12, 2),
         },
         returnRefundAmount:{

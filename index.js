@@ -45,7 +45,6 @@ import './model/banksModel.js'
 import './model/agentsModel.js'
 import './model/journalEntryModel.js'
 import './model/pettyCashLiquidationModel.js'
-import './model/pettyCashLiquidationDetail.js'
 
 
 const app = express()
@@ -81,6 +80,7 @@ app.use('/banks',banks)
 app.use('/agents',agents)
 app.use('/journalEntry', journalEntry)
 app.use('/pettyCashLiquidation', pettyCashLiquidation)
+
 
 //Connection
 const startServer = async()=>{
