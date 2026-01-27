@@ -71,7 +71,7 @@ export const updatePettyCashLiquidation = async(req,res)=>{
 
 export const fetchPettyCashLiquidationDetailByLiquidationId = async (req, res) => {
   try {
-    const { id } = req.params; // liquidation ID
+    const { id } = req.params;
     const result = await PettyCashLiquidationDetail.findAll({
       where: { pettyCashLiquidationId: id },
       include: [
