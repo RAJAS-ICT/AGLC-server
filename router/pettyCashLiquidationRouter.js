@@ -5,7 +5,8 @@ import {
     createPettyCashLiquidation, 
     updatePettyCashLiquidation,
     fetchPettyCashLiquidationDetailByLiquidationId,
-    createPettyCashLiquidationDetail
+    createPettyCashLiquidationDetail,
+    updatePettyCashLiquidationDetail
 } from '../controller/pettyCashLiquidationController.js'
 const router = express.Router()
 
@@ -18,5 +19,6 @@ router.put('/:id', updatePettyCashLiquidation)
 //PettyCashLiquidationDetail Router
 router.get('/detail/:id', fetchPettyCashLiquidationDetailByLiquidationId)
 router.post('/detail', createPettyCashLiquidationDetail)
+router.put('/detail/:id', updatePettyCashLiquidationDetail)
 
 export default router

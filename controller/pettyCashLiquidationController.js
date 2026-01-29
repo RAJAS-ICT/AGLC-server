@@ -87,7 +87,6 @@ export const fetchPettyCashLiquidationDetailByLiquidationId = async (req, res) =
 };
 
 
-
 export const createPettyCashLiquidationDetail = async (req, res) => {
   try {
     const { pettyCashLiquidationId, paymentRequestDetailId, liquidatedAmount, returnRefundAmount } = req.body;
@@ -106,6 +105,38 @@ export const createPettyCashLiquidationDetail = async (req, res) => {
     res.status(201).json({ message: "Created Successfully.", data: result });
   } catch (error) {
     console.error("Error: ", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+
+
+export const updatePettyCashLiquidationDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { liquidatedAmount, returnRefundAmount } = req.body;
+
+    if (!liquidatedAmount && liquidatedAmount !== 0) {
+      return res.status(400).json({ message: "Liquidated amount is required." });
+    }
+
+    const detail = await PettyCashLiquidationDetail.findByPk(id);
+
+    if (!detail) {
+      return res.status(404).json({ message: "Liquidation detail not found." });
+    }
+
+    await detail.update({
+      liquidatedAmount,
+      returnRefundAmount
+    });
+
+    res.status(200).json({
+      message: "Updated Successfully.",
+      data: detail
+    });
+  } catch (error) {
+    console.error("Error updating liquidation detail:", error);
     res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
